@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sammi Physics Calculator</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:linear-gradient(135deg,#4facfe,#00f2fe);
+text-align:center;
+margin:0;
+padding:0;
+}
+
+h2{
+color:white;
+margin-top:20px;
+}
+
+/* HOME */
+#home{
+padding:20px;
+}
+
+#home h3{
+color:white;
+}
+
+/* BUTTON */
+.menu-btn{
+display:block;
+width:85%;
+margin:10px auto;
+padding:14px;
+border:none;
+border-radius:12px;
+background:linear-gradient(45deg,#43e97b,#38f9d7);
+font-weight:bold;
+cursor:pointer;
+}
+
+.container{
+width:90%;
+max-width:400px;
+margin:auto;
+margin-top:30px;
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+input{
+width:85%;
+padding:10px;
+margin:6px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+button{
+padding:10px 15px;
+margin:5px;
+border:none;
+border-radius:8px;
+background:#4facfe;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.result{
+margin-top:10px;
+font-weight:bold;
+color:#0077ff;
+}
+
+.error{
+color:red;
+font-weight:bold;
+}
+
+.calc{
+display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Sammi Physics Calculator</h2>
+
+<!-- HOME -->
+<div id="home">
+<h3>Select Tool</h3>
+
+<button class="menu-btn" onclick="show('forceBox')">Force Calculator</button>
+<button class="menu-btn" onclick="show('velocityBox')">Velocity Calculator</button>
+<button class="menu-btn" onclick="show('densityBox')">Density Calculator</button>
+<button class="menu-btn" onclick="show('workBox')">Work Calculator</button>
+<button class="menu-btn" onclick="show('keBox')">Kinetic Energy</button>
+<button class="menu-btn" onclick="show('mirrorBox')">Mirror Formula</button>
+<button class="menu-btn" onclick="show('lensBox')">Lens Formula</button>
+<button class="menu-btn" onclick="show('ohmBox')">Ohm Law</button>
+<button class="menu-btn" onclick="show('timeBox')">Hour to Second</button>
+
+</div>
+
+<!-- TEMPLATE (copy style for all) -->
+<div class="container calc" id="forceBox">
+<h3>Force Calculator</h3>
+<input type="number" id="mass" placeholder="Mass (kg)">
+<input type="number" id="acc" placeholder="Acceleration (m/s^2)">
+<button onclick="force()">Calculate</button>
+<button onclick="clearBox('mass','acc','forceResult')">Clear</button>
+<div id="forceResult"></div>
+<button onclick="back()">Back</button>
+</div>
+
+<div class="container calc" id="velocityBox">
+<h3>Velocity Calculator</h3>
+<input type="number" id="distance" placeholder="Distance (m)">
+<input type="number" id="time" placeholder="Time (s)">
+<button onclick="velocity()">Calculate</button>
+<button onclick="clearBox('distance','time','velocityResult')">Clear</button>
+<div id="velocityResult"></div>
+<button onclick="back()">Back</button>
+</div>
+
+<div class="container calc" id="densityBox">
+<h3>Density Calculator</h3>
+<input type="number" id="mass2" placeholder="Mass (kg)">
+<input type="number" id="volume" placeholder="Volume (m^3)">
+<button onclick="density()">Calculate</button>
+<button onclick="clearBox('mass2','volume','densityResult')">Clear</button>
+<div id="densityResult"></div>
+<button onclick="back()">Back</button>
+</div>
+
+<div class="container calc" id="workBox">
+<h3>Work Calculator</h3>
+<input type="number" id="force2" placeholder="Force (N)">
+<input type="number" id="dist2" placeholder="Distance (m)">
+<button onclick="work()">Calculate</button>
+<button onclick="clearBox('force2','dist2','workResult')">Clear</button>
+<div id="workResult"></div>
+<button onclick="back()">Back</button>
+</div>
+
+<div class="container calc" id="keBox">
+<h3>Kinetic Energy</h3>
+<input type="number" id="mass3" placeholder="Mass (kg)">
+<input type="number" id="vel2" placeholder="Velocity (m/s)">
+<button onclick="ke()">Calculate</button>
+<button onclick="clearBox('mass3','vel2','keResult')">Clear</button>
+<div id="keResult"></div>
+<button onclick="back()">Back</button>
+</div>
+
+<div class="container calc" id="mirrorBox">
+<h3>Mirror Formula</h3>
+<input type="number" id="u" placeholder="Object distance (u)">
+<input type="number" id="v2" placeholder="Image distance (v)">
+<button onclick="mirror()">Calculate</button>
+<button onclick="clearBox('u','v2','mirrorResult')">Clear</button>
+<div id="mirrorResult"></div>
+<button onclick="back()">Back</button>
+</div>
+
+<div class="container calc" id="lensBox">
+<h3>Lens Formula</h3>
+<input type="number" id="u2" placeholder="Object distance (u)">
+<input type="number" id="v3" placeholder="Image distance (v)">
+<button onclick="lens()">Calculate</button>
+<button onclick="clearBox('u2','v3','lensResult')">Clear</button>
+<div id="lensResult"></div>
+<button onclick="back()">Back</button>
+</div>
+
+<div class="container calc" id="ohmBox">
+<h3>Ohm Law</h3>
+<input type="number" id="current" placeholder="Current (I)">
+<input type="number" id="resistance" placeholder="Resistance (R)">
+<button onclick="voltage()">Calculate</button>
+<button onclick="clearBox('current','resistance','voltResult')">Clear</button>
+<div id="voltResult"></div>
+<button onclick="back()">Back</button>
+</div>
+
+<div class="container calc" id="timeBox">
+<h3>Hour to Second</h3>
+<input type="number" id="hour" placeholder="Hour">
+<button onclick="convertTime()">Convert</button>
+<button onclick="clearBox('hour','','timeResult')">Clear</button>
+<div id="timeResult"></div>
+<button onclick="back()">Back</button>
+</div>
+
+<script>
+
+function show(id){
+let all=document.getElementsByClassName("calc");
+for(let i=0;i<all.length;i++){
+all[i].style.display="none";
+}
+home.style.display="none";
+document.getElementById(id).style.display="block";
+}
+
+function back(){
+let all=document.getElementsByClassName("calc");
+for(let i=0;i<all.length;i++){
+all[i].style.display="none";
+}
+home.style.display="block";
+}
+
+/* CLEAR FUNCTION */
+function clearBox(a,b,result){
+document.getElementById(a).value="";
+if(b) document.getElementById(b).value="";
+document.getElementById(result).innerHTML="";
+}
+
+/* ERROR CHECK */
+function check(x,y){
+if(x=="" || y==""){
+return false;
+}
+return true;
+}
+
+/* FUNCTIONS */
+function force(){
+let m=mass.value, a=acc.value;
+if(!check(m,a)){ forceResult.innerHTML="<span class='error'>Enter values</span>"; return; }
+forceResult.innerHTML="Force = "+(m*a)+" N";
+}
+
+function velocity(){
+let d=distance.value, t=time.value;
+if(!check(d,t)){ velocityResult.innerHTML="<span class='error'>Enter values</span>"; return; }
+velocityResult.innerHTML="Velocity = "+(d/t)+" m/s";
+}
+
+function density(){
+let m=mass2.value, v=volume.value;
+if(!check(m,v)){ densityResult.innerHTML="<span class='error'>Enter values</span>"; return; }
+densityResult.innerHTML="Density = "+(m/v)+" kg/m^3";
+}
+
+function work(){
+let f=force2.value, d=dist2.value;
+if(!check(f,d)){ workResult.innerHTML="<span class='error'>Enter values</span>"; return; }
+workResult.innerHTML="Work = "+(f*d)+" J";
+}
+
+function ke(){
+let m=mass3.value, v=vel2.value;
+if(!check(m,v)){ keResult.innerHTML="<span class='error'>Enter values</span>"; return; }
+keResult.innerHTML="KE = "+(0.5*m*v*v)+" J";
+}
+
+function mirror(){
+let uVal=u.value, vVal=v2.value;
+if(!check(uVal,vVal)){ mirrorResult.innerHTML="<span class='error'>Enter values</span>"; return; }
+mirrorResult.innerHTML="Focal Length = "+(1/((1/uVal)+(1/vVal)));
+}
+
+function lens(){
+let uVal=u2.value, vVal=v3.value;
+if(!check(uVal,vVal)){ lensResult.innerHTML="<span class='error'>Enter values</span>"; return; }
+lensResult.innerHTML="Focal Length = "+(1/((1/uVal)+(1/vVal)));
+}
+
+function voltage(){
+let i=current.value, r=resistance.value;
+if(!check(i,r)){ voltResult.innerHTML="<span class='error'>Enter values</span>"; return; }
+voltResult.innerHTML="Voltage = "+(i*r)+" V";
+}
+
+function convertTime(){
+let h=hour.value;
+if(h==""){ timeResult.innerHTML="<span class='error'>Enter value</span>"; return; }
+timeResult.innerHTML="Seconds = "+(h*3600);
+}
+
+</script>
+
+</body>
+</html>
